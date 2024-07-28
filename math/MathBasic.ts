@@ -1,43 +1,41 @@
-interface MathBasicInterface {
-  add(...args: number[]): number;
-  subtract(...args: number[]): number;
-  multiply(...args: number[]): number;
-  divide(...args: number[]): number;
-  _validateArgs(args: number[]): [number, number];
+// MathBasic.ts
+
+export interface MathBasicInterface {
+  add: (a: number, b: number) => number;
+  subtract: (a: number, b: number) => number;
+  multiply: (a: number, b: number) => number;
+  divide: (a: number, b: number) => number;
 }
 
-const MathBasic: MathBasicInterface = {
-  _validateArgs(args: number[]): [number, number] {
-    if (args.length !== 2) {
-      throw new Error("fungsi hanya menerima dua parameter");
-    }
-
-    const [a, b] = args;
-
+class MathBasic implements MathBasicInterface {
+  private validateArgs(a: number, b: number): void {
     if (typeof a !== "number" || typeof b !== "number") {
-      throw new Error("fungsi hanya menerima parameter number");
+      throw new Error("Function only accepts number parameters");
     }
-    return [a, b];
-  },
-  add(...args: number[]): number {
-    const [a, b] = this._validateArgs(args);
+  }
+
+  add(a: number, b: number): number {
+    this.validateArgs(a, b);
     return a + b;
-  },
-  subtract(...args: number[]): number {
-    const [a, b] = this._validateArgs(args);
+  }
+
+  subtract(a: number, b: number): number {
+    this.validateArgs(a, b);
     return a - b;
-  },
-  multiply(...args: number[]): number {
-    const [a, b] = this._validateArgs(args);
+  }
+
+  multiply(a: number, b: number): number {
+    this.validateArgs(a, b);
     return a * b;
-  },
-  divide(...args: number[]): number {
-    const [a, b] = this._validateArgs(args);
+  }
+
+  divide(a: number, b: number): number {
+    this.validateArgs(a, b);
     if (b === 0) {
-      throw new Error("tidak dapat membagi dengan nol");
+      throw new Error("Cannot divide by zero");
     }
     return a / b;
-  },
-};
+  }
+}
 
-export default MathBasic;
+export default new MathBasic();
